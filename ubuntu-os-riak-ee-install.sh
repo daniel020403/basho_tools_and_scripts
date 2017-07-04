@@ -1,19 +1,22 @@
 #!/usr/bin/env bash
 
-RIAK_EE_PACKAGE_LINK="http://s3.amazonaws.com/private.downloads.basho.com/riak_ee/31f566/2.1.3/ubuntu/trusty/riak-ee_2.1.3-1_amd64.deb"
+RIAK_EE_PACKAGE_USER="daniel-garcia"
+RIAK_EE_PACKAGE_HOST="sftp.tiot.jp"
+RSYNC_REMOTE_SHELL="ssh -i /home/vagrant/.ssh/daniel_tiot_sftp"
+RIAK_EE_PACKAGE_SOURCE="/home/daniel-garcia/sftp-internal/RiakEE/KV/2.1.4/riak-ee_2.1.4-2_amd64.deb"
 
 RIAK_NAME="riak01"
-RIAK_IP="192.168.1.80"
+RIAK_IP="192.168.0.110"
 RIAK_PB_PORT="8087"
 RIAK_HTTP_PORT="8098"
-DISTRIBUTED_COOKIE="cluster04"
+DISTRIBUTED_COOKIE="cluster01"
 
 sudo riak stop
 echo ''
 
 sudo apt-get -y remove --purge riak-ee
 
-curl $RIAK_EE_PACKAGE_LINK -o /tmp/riak_ee.deb
+rsync -azP -e "$RSYNC_REMOTE_SHELL" $RIAK_EE_PACKAGE_USER@$RIAK_EE_PACKAGE_HOST:$RIAK_EE_PACKAGE_SOURCE /tmp/riak_ee.deb
 chmod +x /tmp/riak_ee.deb
 sudo dpkg -i /tmp/riak_ee.deb
 sudo apt-get install -f
