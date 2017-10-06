@@ -6,10 +6,10 @@ RSYNC_REMOTE_SHELL="ssh -i /home/vagrant/.ssh/daniel_tiot_sftp"
 RIAK_EE_PACKAGE_SOURCE="/home/daniel-garcia/sftp-internal/RiakEE/KV/2.1.4/riak-ee_2.1.4-2_amd64.deb"
 
 RIAK_NAME="riak01"
-RIAK_IP="192.168.0.110"
+RIAK_IP="192.168.35.10"
 RIAK_PB_PORT="8087"
 RIAK_HTTP_PORT="8098"
-DISTRIBUTED_COOKIE="cluster01"
+DISTRIBUTED_COOKIE="cluster03"
 
 sudo riak stop
 echo ''
