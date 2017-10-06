@@ -151,13 +151,13 @@ sudo grep nodename /etc/riak-cs/riak-cs.conf
 echo ''
 sudo sed -i.bak "s/riak_host = 127.0.0.1:8087/riak_host = $RIAK_IP:$RIAK_PB_PORT/" /etc/riak-cs/riak-cs.conf
 sudo rm -v /etc/riak-cs/riak-cs.conf.bak
-sudo grep listener.http.internal /etc/riak-cs/riak-cs.conf
+sudo grep riak_host /etc/riak-cs/riak-cs.conf
 echo ''
 sudo sed -i.bak "s/listener = 127.0.0.1:8080/listener = $RIAK_CS_IP:$RIAK_CS_LISTENER/" /etc/riak-cs/riak-cs.conf
 sudo rm -v /etc/riak-cs/riak-cs.conf.bak
-sudo grep listener.protobuf.internal /etc/riak-cs/riak-cs.conf
+sudo grep listener /etc/riak-cs/riak-cs.conf
 echo ''
 sudo sed -i.bak "s/stanchion_host = 127.0.0.1:8085/stanchion_host = $STANCHION_IP:$STANCHION_LISTENER/" /etc/riak-cs/riak-cs.conf
 sudo rm -v /etc/riak-cs/riak-cs.conf.bak
-sudo grep distributed_cookie /etc/riak/riak-cs.conf
+sudo grep stanchion_host /etc/riak-cs/riak-cs.conf
 echo ''
