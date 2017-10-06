@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-RIAK_IP="192.168.1.50"
+RIAK_IP="192.168.35.10"
 RIAK_CS_LISTENER="8080"
 ADMIN_NAME="admin"
 ADMIN_EMAIL="admin@email.com"
