@@ -3,13 +3,13 @@
 STANCHION_PACKAGE_USER="daniel-garcia"
 STANCHION_PACKAGE_HOST="sftp.tiot.jp"
 RSYNC_REMOTE_SHELL="ssh -i /home/vagrant/.ssh/daniel_tiot_sftp"
-STANCHION_PACKAGE_SOURCE="/home/daniel-garcia/sftp-root/internal/RiakEE/Stanchion/2.1.1/stanchion_2.1.1-1_amd64.deb"
+STANCHION_PACKAGE_SOURCE="/home/daniel-garcia/sftp-internal/RiakEE/Stanchion/2.1.1/stanchion_2.1.1-1_amd64.deb"
 
-RIAK_IP="192.168.35.10"
+RIAK_IP="192.168.33.10"
 RIAK_PB_PORT="8087"
 
 STANCHION_NAME="stanchion"
-STANCHION_IP="192.168.35.10"
+STANCHION_IP="192.168.33.10"
 STANCHION_LISTENER="8085"
 
 sudo stanchion stop

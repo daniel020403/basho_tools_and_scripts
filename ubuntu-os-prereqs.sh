@@ -9,6 +9,8 @@ sudo apt-get install -y s3cmd
 sudo apt-get install -y unzip
 sudo apt-get install -y git
 sudo apt-get install -y sysstat
+sudo apt-get install -y libssl0.9.8
+sudo apt-get install -y ntp
 
 curl http://s3.amazonaws.com/doc/s3-example-code/s3-curl.zip -o /tmp/s3-curl.zip
 sudo unzip -d /usr/local/bin /tmp/s3-curl.zip

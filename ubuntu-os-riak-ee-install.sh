@@ -3,13 +3,13 @@
 RIAK_EE_PACKAGE_USER="daniel-garcia"
 RIAK_EE_PACKAGE_HOST="sftp.tiot.jp"
 RSYNC_REMOTE_SHELL="ssh -i /home/vagrant/.ssh/daniel_tiot_sftp"
-RIAK_EE_PACKAGE_SOURCE="/home/daniel-garcia/sftp-internal/RiakEE/KV/2.1.4/riak-ee_2.1.4-2_amd64.deb"
+RIAK_EE_PACKAGE_SOURCE="/home/daniel-garcia/sftp-internal/RiakEE/KV/2.1.4/riak-ee_2.1.4-1_amd64.deb.2"
 
 RIAK_NAME="riak01"
-RIAK_IP="192.168.35.10"
+RIAK_IP="192.168.33.10"
 RIAK_PB_PORT="8087"
 RIAK_HTTP_PORT="8098"
-DISTRIBUTED_COOKIE="cluster03"
+DISTRIBUTED_COOKIE="cluster01"
 
 sudo riak stop
 echo ''
