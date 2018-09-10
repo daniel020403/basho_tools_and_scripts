@@ -1,16 +1,19 @@
 #!/usr/bin/env bash
 
-RIAK_CS_EE_PACKAGE_LINK="http://s3.amazonaws.com/private.downloads.basho.com/riak-cs-ee/31f566/2.1.1/ubuntu/trusty/riak-cs-ee_2.1.1-1_amd64.deb"
+RIAK_CS_EE_PACKAGE_USER="daniel-garcia"
+RIAK_CS_EE_PACKAGE_HOST="sftp.tiot.jp"
+RSYNC_REMOTE_SHELL="ssh -i /vagrant/daniel_tiot_sftp"
+RIAK_EE_PACKAGE_SOURCE="/home/daniel-garcia/sftp-internal/RiakEE/CS/2.1.1/riak-cs-ee_2.1.1-1_amd64.deb"
 
 RIAK_CS_NAME="riak-cs01"
-RIAK_CS_IP="192.168.1.50"
+RIAK_CS_IP="192.168.33.11"
 RIAK_CS_LISTENER="8080"
 
-RIAK_IP="192.168.1.50"
+RIAK_IP="192.168.33.11"
 RIAK_PB_PORT="8087"
 RIAK_ADVANCED_CONFIG_CS_EBIN="/usr/lib/riak-cs/lib/riak_cs-2.1.1/ebin"
 
-STANCHION_IP="192.168.1.50"
+STANCHION_IP="192.168.33.11"
 STANCHION_LISTENER="8085"
 
 sudo riak-cs stop
@@ -19,10 +22,10 @@ echo ''
 sudo apt-get -y remove --purge riak-cs-ee
 echo ''
 
-curl $RIAK_CS_EE_PACKAGE_LINK -o /tmp/riak_cs_ee.deb
+rsync -azP -e "$RSYNC_REMOTE_SHELL" $RIAK_CS_EE_PACKAGE_USER@$RIAK_CS_EE_PACKAGE_HOST:$RIAK_EE_PACKAGE_SOURCE /tmp/riak_cs_ee.deb
 chmod +x /tmp/riak_cs_ee.deb
 sudo dpkg -i /tmp/riak_cs_ee.deb
-sudo apt-get install -f
+sudo apt-get install -fy
 rm -v /tmp/riak_cs_ee.deb
 echo ''
 
@@ -134,22 +137,27 @@ echo \
 ]." | sudo tee /etc/riak/advanced.config
 echo ''
 
+echo \
+"
+buckets.default.allow_mult = true" | sudo tee -a /etc/riak/riak.conf
+echo ''
+
 echo "riak" `riak-cs version`
 echo ''
 
 sudo sed -i.bak "s/nodename = riak-cs@127.0.0.1/nodename = $RIAK_CS_NAME@$RIAK_CS_IP/" /etc/riak-cs/riak-cs.conf
 sudo rm -v /etc/riak-cs/riak-cs.conf.bak
-sudo grep nodename /etc/riak/riak-cs.conf
+sudo grep nodename /etc/riak-cs/riak-cs.conf
 echo ''
 sudo sed -i.bak "s/riak_host = 127.0.0.1:8087/riak_host = $RIAK_IP:$RIAK_PB_PORT/" /etc/riak-cs/riak-cs.conf
 sudo rm -v /etc/riak-cs/riak-cs.conf.bak
-sudo grep listener.http.internal /etc/riak/riak-cs.conf
+sudo grep riak_host /etc/riak-cs/riak-cs.conf
 echo ''
 sudo sed -i.bak "s/listener = 127.0.0.1:8080/listener = $RIAK_CS_IP:$RIAK_CS_LISTENER/" /etc/riak-cs/riak-cs.conf
 sudo rm -v /etc/riak-cs/riak-cs.conf.bak
-sudo grep listener.protobuf.internal /etc/riak/riak-cs.conf
+sudo grep listener /etc/riak-cs/riak-cs.conf
 echo ''
 sudo sed -i.bak "s/stanchion_host = 127.0.0.1:8085/stanchion_host = $STANCHION_IP:$STANCHION_LISTENER/" /etc/riak-cs/riak-cs.conf
 sudo rm -v /etc/riak-cs/riak-cs.conf.bak
-sudo grep distributed_cookie /etc/riak/riak-cs.conf
+sudo grep stanchion_host /etc/riak-cs/riak-cs.conf
 echo ''

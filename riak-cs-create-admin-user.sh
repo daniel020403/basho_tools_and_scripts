@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-RIAK_IP="192.168.1.50"
+RIAK_IP="192.168.33.10"
 RIAK_CS_LISTENER="8080"
 ADMIN_NAME="admin"
 ADMIN_EMAIL="admin@email.com"
@@ -11,12 +11,17 @@ echo ''
 
 sudo riak-cs stop
 sudo riak-cs start
+echo "riak-cs:" `sudo riak-cs ping`
 echo ''
 
+sudo rm -v /tmp/riak-cs-admin-user
 curl -H 'Content-Type: application/json' \
     -XPOST http://$RIAK_IP:$RIAK_CS_LISTENER/riak-cs/user \
     --data "{\"email\":\"$ADMIN_EMAIL\", \"name\":\"$ADMIN_NAME\"}" | sudo tee /tmp/riak-cs-admin-user
 echo ''
+
+sudo rm -v /vagrant/riak-cs-admin-user
+cp -v /tmp/riak-cs-admin-user /vagrant/
 
 KEY_ID=`cat /tmp/riak-cs-admin-user | jq '.key_id'`
 KEY_ID="${KEY_ID%\"}"
@@ -46,6 +51,7 @@ echo ''
 
 sudo stanchion stop
 sudo stanchion start
+echo "stanchion:" `sudo stanchion ping`
 
 sudo sed -i.bak "s/anonymous_user_creation = on/anonymous_user_creation = off/" /etc/riak-cs/riak-cs.conf
 sudo rm -v /etc/riak-cs/riak-cs.conf.bak
@@ -53,4 +59,5 @@ echo ''
 
 sudo riak-cs stop
 sudo riak-cs start
+echo "riak-cs:" `sudo riak-cs ping`
 echo ''

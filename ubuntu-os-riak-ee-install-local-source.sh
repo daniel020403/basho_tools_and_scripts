@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 
-RIAK_EE_PACKAGE_USER="daniel-garcia"
-RIAK_EE_PACKAGE_HOST="sftp.tiot.jp"
-RSYNC_REMOTE_SHELL="ssh -i /vagrant/daniel_tiot_sftp"
-RIAK_EE_PACKAGE_SOURCE="/home/daniel-garcia/sftp-internal/RiakEE/KV/2.1.4/riak-ee_2.1.4-1_amd64.deb.2"
+RIAK_EE_PACKAGE_SOURCE="/vagrant/riak-ee_2.1.4-1_amd64.deb.2"
 
 RIAK_NAME="riak05"
-RIAK_IP="192.168.33.15"
+RIAK_IP="192.168.33.14"
 RIAK_PB_PORT="8087"
 RIAK_HTTP_PORT="8098"
 DISTRIBUTED_COOKIE="cluster00"
@@ -16,7 +13,7 @@ echo ''
 
 sudo apt-get -y remove --purge riak-ee
 
-rsync -azP -e "$RSYNC_REMOTE_SHELL" $RIAK_EE_PACKAGE_USER@$RIAK_EE_PACKAGE_HOST:$RIAK_EE_PACKAGE_SOURCE /tmp/riak_ee.deb
+cp -v $RIAK_EE_PACKAGE_SOURCE /tmp/riak_ee.deb
 chmod +x /tmp/riak_ee.deb
 sudo dpkg -i /tmp/riak_ee.deb
 sudo apt-get install -f
