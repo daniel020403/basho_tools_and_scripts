@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-RIAK_IP="192.168.34.10"
+RIAK_IP="192.168.33.10"
 RIAK_CS_LISTENER="8080"
 ADMIN_NAME="admin"
 ADMIN_EMAIL="admin@email.com"
@@ -19,6 +19,9 @@ curl -H 'Content-Type: application/json' \
     -XPOST http://$RIAK_IP:$RIAK_CS_LISTENER/riak-cs/user \
     --data "{\"email\":\"$ADMIN_EMAIL\", \"name\":\"$ADMIN_NAME\"}" | sudo tee /tmp/riak-cs-admin-user
 echo ''
+
+sudo rm -v /vagrant/riak-cs-admin-user
+cp -v /tmp/riak-cs-admin-user /vagrant/
 
 KEY_ID=`cat /tmp/riak-cs-admin-user | jq '.key_id'`
 KEY_ID="${KEY_ID%\"}"

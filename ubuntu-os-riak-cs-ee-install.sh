@@ -2,18 +2,18 @@
 
 RIAK_CS_EE_PACKAGE_USER="daniel-garcia"
 RIAK_CS_EE_PACKAGE_HOST="sftp.tiot.jp"
-RSYNC_REMOTE_SHELL="ssh -i /home/vagrant/.ssh/daniel_tiot_sftp"
+RSYNC_REMOTE_SHELL="ssh -i /vagrant/daniel_tiot_sftp"
 RIAK_EE_PACKAGE_SOURCE="/home/daniel-garcia/sftp-internal/RiakEE/CS/2.1.1/riak-cs-ee_2.1.1-1_amd64.deb"
 
-RIAK_CS_NAME="riak-cs05"
-RIAK_CS_IP="192.168.34.14"
+RIAK_CS_NAME="riak-cs01"
+RIAK_CS_IP="192.168.33.11"
 RIAK_CS_LISTENER="8080"
 
-RIAK_IP="192.168.34.14"
+RIAK_IP="192.168.33.11"
 RIAK_PB_PORT="8087"
 RIAK_ADVANCED_CONFIG_CS_EBIN="/usr/lib/riak-cs/lib/riak_cs-2.1.1/ebin"
 
-STANCHION_IP="192.168.34.10"
+STANCHION_IP="192.168.33.11"
 STANCHION_LISTENER="8085"
 
 sudo riak-cs stop

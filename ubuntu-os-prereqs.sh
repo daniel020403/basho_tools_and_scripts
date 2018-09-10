@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+#----- libssl for xenial64-----
+echo "deb http://security.ubuntu.com/ubuntu trusty-security main universe" >> /tmp/libssl.list
+sudo mv -v /tmp/libssl.list /etc/apt/sources.list.d/
+
 sudo apt-get update
 
 sudo apt-get install -y apt-transport-https
@@ -11,6 +15,8 @@ sudo apt-get install -y git
 sudo apt-get install -y sysstat
 sudo apt-get install -y libssl0.9.8
 sudo apt-get install -y ntp
+sudo apt-get install -y ntpdate
+sudo apt-get install -y htop
 
 curl http://s3.amazonaws.com/doc/s3-example-code/s3-curl.zip -o /tmp/s3-curl.zip
 sudo unzip -d /usr/local/bin /tmp/s3-curl.zip
